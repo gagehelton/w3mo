@@ -1,6 +1,9 @@
 import sys
+import socket
 import requests
 import xml.etree.ElementTree as ET
+
+debug = True
 
 class _DEFAULTS():
     headers={
@@ -71,17 +74,20 @@ class w3mo():
     def control(self,**kwargs):
         required = {"action":{"type":str},"state":{"type":str},"value":{"type":int}}
         if(parse_kwargs(required,kwargs)):
-            headers = _DEFAULTS.headers.copy()
-            headers['SOAPACTION'] = headers['SOAPACTION'].format(**kwargs)
-
-            data = _DEFAULTS.post_xml.format(**kwargs)
-
-            #print("{}\n{}\n{}\n\n\n\n".format(self.url,headers,data))
-
-            response = requests.post(self.url,headers=headers,data=data,timeout=_DEFAULTS.timeout)
-            if(response.status_code == 200):
-                state = self.parse_xml(response.text,_DEFAULTS.states['STATE'])
-                return state
+            try:
+                headers = _DEFAULTS.headers.copy()
+                headers['SOAPACTION'] = headers['SOAPACTION'].format(**kwargs)
+    
+                data = _DEFAULTS.post_xml.format(**kwargs)
+    
+                #print("{}\n{}\n{}\n\n\n\n".format(self.url,headers,data))
+    
+                response = requests.post(self.url,headers=headers,data=data,timeout=_DEFAULTS.timeout)
+                if(response.status_code == 200):
+                    state = self.parse_xml(response.text,_DEFAULTS.states['STATE'])
+                    return state
+            except Exception as e:
+                if(debug): print("\n{}\n".format(str(e)))
 
     #works!
     def get(self,**kwargs):
@@ -98,30 +104,64 @@ class w3mo():
                 response = requests.get(self.url,headers=headers,data=data,timeout=_DEFAULTS.timeout)
 
                 if(response.status_code == 200):
-                    if('name' in action.lower()):
+                    if('name' in kwargs['action'].lower()):
                         search = _DEFAULTS.states['NAME']
-                    elif('state' in action.lower()):
+                    elif('state' in kwargs['action'].lower()):
                         search = _DEFAULTS.states['STATE']
                     else:
                         return False
                     value = self.parse_xml(response.text,search)
                     return value
             except Exception as e:
-                print(str(e))
+                if(debug): print("\n{}\n".format(str(e)))
+        else:
+            return False
 
-if __name__ == '__main__':
-
+def interactive():
     error_counter = 0
-    
+    response = False
     try:
-        ip = str(input("Please Enter The IP Address Of Your Device: ")).strip()
+        ip = str(input("\nPlease enter the IP address of your device: ")).strip()
         if(ip == 'exit'):
             sys.exit()
+
         x = w3mo(ip=ip)
+        
+        response = x.get(
+            action=_DEFAULTS.actions['GET_STATE'],
+            value=1
+            )
+        
+        if(not response):
+            print("\nNo device at address {}".format(ip))
+            sys.exit()
+
+        else:
+            print("\nDevice {} initialized\n".format(x))
+            response = False
+        
     except Exception as e:
+        print('fail here')
         print(str(e))
 
-    print("\nWelcome to W3mo Pwn!\nTo control your device just enter a state integer (0=OFF,1=ON)\nTo get your device power state enter 'state'\nTo get your device's friendly name enter 'name'\nHappy controlling!\n")
+    prompt = '''|-------------------------------------------------------------------------------------------------------------------|
+| Welcome to W3mo Pwn!                                                                                              |
+|-------------------------------------------------------------------------------------------------------------------|
+| I would like to personally thank Belkin for being a bag of di*** and hiding the API...                            |                  
+| Despite your best efforts, here we are!                                                                           |
+|-------------------------------------------------------------------------------------------------------------------|
+| To control your device just enter a state integer (0=OFF,1=ON)                                                    |
+| To get your device power state enter 'state'                                                                      |
+| To get your device's friendly name enter 'name'                                                                   |
+| To EXIT this prompt enter exit                                                                                    |
+| To see this prompt again... enter help or ?                                                                       |
+|-------------------------------------------------------------------------------------------------------------------|
+| Happy controlling!                                                                                                |
+|-------------------------------------------------------------------------------------------------------------------|
+'''
+
+    print(prompt)                  
+
 
     while True:
         try:
@@ -150,29 +190,40 @@ if __name__ == '__main__':
                     print("Failure!\n")
                 error_counter = 0
 
+            elif(value.lower() == 'help' or value == '?'):
+                print(prompt)
+
             elif(not isinstance(value,bool) and isinstance(value,str)):   
                 if('name' in value.lower()):
                     action = _DEFAULTS.actions['GET_NAME']
+                    ready = True
                 elif('state' in value.lower()):
-                    action = _DEFAULTS.actions['GET_STATE']      
-                response = x.get(
-                    action=action,
-                    value=value
-                )
-                if(response):
-                    if(response == '1'):
-                        current_state = 'ON'
-                    elif(isinstance(value,int) or 'state' in value.lower()):
-                        current_state = 'OFF'
-                    else:
-                        current_state = response
-                    print("Success! The data you seek is: {}\n".format(current_state))
+                    action = _DEFAULTS.actions['GET_STATE']
+                    ready = True
                 else:
-                    print("Failure!\n")
-                error_counter = 0
+                    ready = False
+                if(ready):
+                    response = x.get(
+                        action=action,
+                        value=value
+                    )
+                    if(response):
+                        if(response == '1'):
+                            current_state = 'ON'
+                        elif(isinstance(value,int) or 'state' in value.lower()):
+                            current_state = 'OFF'
+                        else:
+                            current_state = response
+                        print("Success! The data you seek is: {}\n".format(current_state))
+                    else:
+                        print("Failure!\n")
+                    error_counter = 0
+                else:
+                    print("***Command Not Recognized!***")
+                    error_counter += 1
 
             else:
-                print("no usable value...")
+                print("***Command Not Recognized!***")
                 error_counter += 1
 
         except Exception as e:
@@ -180,14 +231,16 @@ if __name__ == '__main__':
             print(str(e))
 
         if(error_counter >= 5):
-            print("Terminating...")
+            print("\nI feel I'm being abused... iniating termination sequence\n")
             break
 
+        value = False
+        response = False
+        current_state = False
 
 
-
-
-
+if __name__ == '__main__':
+    interactive()
 
 
 
