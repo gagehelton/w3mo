@@ -111,7 +111,7 @@ if __name__ == '__main__':
             '''
             if(not isinstance(value,bool)):         
                 x.get(
-                    action=_DEFAULTS.actions['GET_NAME'],
+                    action=_DEFAULTS.actions['GET_STATE'],
                     state=_DEFAULTS.states['BINARY_STATE'],
                     value=value
                 )
