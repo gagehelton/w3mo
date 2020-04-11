@@ -1,0 +1,8 @@
+README.md
+setup.py
+w3mo/__init__.py
+w3mo/w3mo.py
+w3mo_mghelton.egg-info/PKG-INFO
+w3mo_mghelton.egg-info/SOURCES.txt
+w3mo_mghelton.egg-info/dependency_links.txt
+w3mo_mghelton.egg-info/top_level.txt

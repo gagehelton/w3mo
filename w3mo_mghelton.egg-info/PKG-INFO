@@ -1,0 +1,13 @@
+Metadata-Version: 1.1
+Name: w3mo-mghelton
+Version: 0.1
+Summary: w3mo control script
+Home-page: https://github.com/mghelton/w3mo
+Author: Gage Helton
+Author-email: gagehelton@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
