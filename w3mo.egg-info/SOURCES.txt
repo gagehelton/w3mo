@@ -1,0 +1,9 @@
+README.md
+setup.py
+w3mo/__init__.py
+w3mo/w3mo.py
+w3mo.egg-info/PKG-INFO
+w3mo.egg-info/SOURCES.txt
+w3mo.egg-info/dependency_links.txt
+w3mo.egg-info/requires.txt
+w3mo.egg-info/top_level.txt
