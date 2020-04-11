@@ -61,6 +61,21 @@ class w3mo():
             print(response)
             print(response.text)
 
+    #works!
+    def get(self,**kwargs):
+        required = {"action":{"type":str},"state":{"type":str},"value":{"type":int}}
+        if(parse_kwargs(required,kwargs)):
+            headers = _DEFAULTS.headers
+            headers['SOAPACTION'] = headers['SOAPACTION'].format(**kwargs)
+
+            data = _DEFAULTS.xml_body.format(**kwargs)
+
+            print("{}\n{}\n{}\n\n\n\n".format(self.url,headers,data))
+
+            response = requests.get(self.url,headers=headers,data=data)
+            print(response)
+            print(response.text)
+
 if __name__ == '__main__':
 
     error_counter = 0
@@ -85,6 +100,7 @@ if __name__ == '__main__':
                 error_counter += 1
                 value = False   
 
+            '''
             if(not isinstance(value,bool)):         
                 x.control(
                     action=_DEFAULTS.actions['SET_STATE'],
@@ -92,11 +108,20 @@ if __name__ == '__main__':
                     value=value
                 )
                 error_counter = 0
+            '''
+            if(not isinstance(value,bool)):         
+                x.get(
+                    action=_DEFAULTS.actions['GET_NAME'],
+                    state=_DEFAULTS.states['BINARY_STATE'],
+                    value=value
+                )
+                error_counter = 0
+                
             else:
                 print("no value...")
                 error_counter += 1
 
-        except Excetion as e:
+        except Exception as e:
             error_counter += 1
             print(str(e))
 
