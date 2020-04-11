@@ -3,7 +3,7 @@ import socket
 import requests
 import xml.etree.ElementTree as ET
 
-debug = True
+debug = False
 
 class _DEFAULTS():
     headers={
@@ -241,14 +241,3 @@ def interactive():
 
 if __name__ == '__main__':
     interactive()
-
-
-
-
-
-
-
-
-
-
-    
