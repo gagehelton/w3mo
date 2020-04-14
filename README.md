@@ -1,5 +1,5 @@
 # w3mo
-hack the wemo
+control your wemo devices
 
 # Installation
 * clone repository
