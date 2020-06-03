@@ -1,9 +1,11 @@
 import sys
 import socket
 import requests
+import threading
 import xml.etree.ElementTree as ET
 
 debug = False
+devices = {}
 
 class _DEFAULTS():
     headers={
@@ -116,6 +118,50 @@ class w3mo():
                 if(debug): print("\n{}\n".format(str(e)))
         else:
             return False
+
+def work3r(**kwargs):
+    global devices
+    ip = kwargs['ip']
+        
+    x = w3mo(ip=ip)
+    
+    response = x.get(
+        action=_DEFAULTS.actions['GET_STATE'],
+        value=1
+        )
+  
+    if(not response):
+        print("No device at address {}".format(ip))
+    else:
+        response = x.get(
+            action=_DEFAULTS.actions['GET_NAME'],
+            value=1
+            )
+        if(response):
+            print("Device {} | {} initialized".format(response,ip))
+            devices[ip] = response
+
+def discover():
+    global devices
+    devices = {}
+    try:
+        host_name = socket.gethostname() 
+        host_ip = socket.gethostbyname(host_name) 
+    except Exception as e:
+        return False
+
+    if(host_ip):
+        subnet = '.'.join(host_ip.split(".")[:3])+"."
+        for i in range(1,255):
+            threading.Thread(target=work3r,kwargs={"ip":subnet+str(i)}).start()
+            
+    main_thread = threading.currentThread()
+    for t in threading.enumerate():
+        if t is main_thread:
+            continue
+        t.join()
+
+    return devices
 
 def interactive():
     error_counter = 0

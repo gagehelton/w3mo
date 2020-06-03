@@ -4,6 +4,9 @@ with open("./requirements.txt", "r")as f:
     req = f.read()
     f.close()
 
+with open("./README.md","r")as f:
+    long_description = f.read()
+
 setup(name='w3mo',
         version='0.1.0',
         description='wemo control library',
@@ -16,4 +19,6 @@ setup(name='w3mo',
             "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
         ],
+        long_description=long_description,
+        long_description_content_type="text/markdown",
         install_requires=req)
