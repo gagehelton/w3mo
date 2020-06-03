@@ -1,3 +1,8 @@
+<span>[![Downloads](https://pepy.tech/badge/w3mo)](https://pepy.tech/project/w3mo) 
+[![Downloads](https://pepy.tech/badge/w3mo/month)](https://pepy.tech/project/w3mo/month)
+[![Downloads](https://pepy.tech/badge/w3mo/week)](https://pepy.tech/project/w3mo/week)
+</span>
+
 # w3mo
 Control your wemo devices!
 
