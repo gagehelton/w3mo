@@ -196,6 +196,14 @@ def work3r(**kwargs):
 def discover(**kwargs):
     global devices
 
+    def join():
+        main_thread = threading.currentThread()
+        for t in threading.enumerate():
+            if t is main_thread:
+                continue
+            t.join()
+        return True
+
     print("Discovering devices...")
     try:
         if(kwargs['return_type'] == dict):
@@ -204,6 +212,11 @@ def discover(**kwargs):
             devices = []
     except:
         devices = {}
+
+    try:
+        additional_ranges = kwargs['additional_ranges']
+    except:
+        additional_ranges = []
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
@@ -218,13 +231,20 @@ def discover(**kwargs):
         subnet = '.'.join(host_ip.split(".")[:3])+"."
         for i in range(1,255):
             threading.Thread(target=work3r,kwargs={"ip":subnet+str(i)}).start()
-            
-    main_thread = threading.currentThread()
-    for t in threading.enumerate():
-        if t is main_thread:
-            continue
-        t.join()
-    print("Dicovery complete!")
+
+    join()
+    
+    if(additional_ranges):
+        if(isinstance(additional_ranges,list)):
+            print("Looking in addtional ranges...")
+            for rng in additional_ranges:
+                print("{}...".format(rng))
+                for i in range(1,255):
+                    subnet = '.'.join(rng.split(".")[:3])+"."
+                    threading.Thread(target=work3r,kwargs={"ip":subnet+str(i)}).start()
+                join()
+
+    print("Dicovery complete!")    
     return devices
 
 def interactive():
