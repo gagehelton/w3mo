@@ -72,7 +72,17 @@ class w3mo():
             else:
                 print("something is off... \n\n {} \n\n".format(node))
                 return False
-    
+
+
+    def simple_control(self,state):
+        try:
+            self.control(action=_DEFAULTS.actions['SET_STATE'],
+                state=_DEFAULTS.states['STATE'],
+                value=state
+                )
+        except Exception as e:
+            print(type(e).__name__,e.args)
+
     def control(self,**kwargs):
         required = {"action":{"type":str},"state":{"type":str},"value":{"type":int}}
         if(parse_kwargs(required,kwargs)):
@@ -90,6 +100,8 @@ class w3mo():
                     return state
             except Exception as e:
                 if(debug): print("\n{}\n".format(str(e)))
+                return False
+        return False
 
     #works!
     def get(self,**kwargs):
@@ -139,7 +151,9 @@ def work3r(**kwargs):
             )
         if(response):
             print("Device {} | {} initialized".format(response,ip))
-            devices[ip] = response
+            devices[ip] = {}
+            devices[ip]['name'] = response
+            devices[ip]['obj'] = x
 
 def discover():
     global devices
@@ -166,30 +180,37 @@ def discover():
 def interactive():
     error_counter = 0
     response = False
-    try:
-        ip = str(input("\nPlease enter the IP address of your device: ")).strip()
-        if(ip == 'exit'):
-            sys.exit()
 
-        x = w3mo(ip=ip)
-        
-        response = x.get(
-            action=_DEFAULTS.actions['GET_STATE'],
-            value=1
-            )
-        
-        if(not response):
-            print("\nNo device at address {}".format(ip))
-            sys.exit()
+    
 
-        else:
-            print("\nDevice {} initialized\n".format(x))
-            response = False
-        
-    except Exception as e:
-        print('fail here')
-        print(str(e))
+    found = discover()
 
+    if(not found):
+        try:
+            ip = str(input("\nPlease enter the IP address of your device: ")).strip()
+            if(ip == 'exit'):
+                sys.exit()
+    
+            x = w3mo(ip=ip)
+            
+            response = x.get(
+                action=_DEFAULTS.actions['GET_STATE'],
+                value=1
+                )
+            
+            if(not response):
+                print("\nNo device at address {}".format(ip))
+                sys.exit()
+    
+            else:
+                print("\nDevice {} initialized\n".format(x))
+                response = False
+            
+        except Exception as e:
+            print('fail here')
+            print(str(e))
+    else:
+        return False
     prompt = '''|-------------------------------------------------------------------------------------------------------------------|
 | Welcome to W3mo Pwn!                                                                                              |
 |-------------------------------------------------------------------------------------------------------------------|

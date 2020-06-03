@@ -8,7 +8,7 @@ with open("./README.md","r")as f:
     long_description = f.read()
 
 setup(name='w3mo',
-        version='0.1.0',
+        version='0.1.1',
         description='wemo control library',
         author='Gage Helton',
         author_email='gagehelton@gmail.com',
