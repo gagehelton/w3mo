@@ -12,7 +12,7 @@ w3mo is a pure python API wrapper for wemo devices
 # Usage
 * Device Discovery
 ```python
-import w3mo
+from w3mo import w3mo
 
 #returns a dictionary of devices with the device name as the key
 #{'name':{'ip':device_ip,'obj':instantiated w3mo control class}}
@@ -24,7 +24,7 @@ x = w3mo.discover(return_type=list)
 ```
 * Device Control
 ```python
-import w3mo
+from w3mo import w3mo
 import time
 
 devices = w3mo.discover(return_type=list)

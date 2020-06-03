@@ -204,11 +204,14 @@ def discover(**kwargs):
             devices = []
     except:
         devices = {}
-    
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        host_name = socket.gethostname() 
-        host_ip = socket.gethostbyname(host_name) 
+        s.connect(('8.8.8.8', 1))
+        host_ip = s.getsockname()[0]
     except Exception as e:
+        s.close()
+        print(type(e).__name__,e.args)
         return False
 
     if(host_ip):

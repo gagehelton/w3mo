@@ -1,4 +1,4 @@
-import w3mo
+from w3mo import w3mo
 import time
 
 devices = w3mo.discover(return_type=list)
