@@ -1,10 +1,10 @@
-<strong>Control your wemo devices!</strong>
+# Overview
+
+w3mo is a pure python API wrapper for wemo devices
 
 [![Downloads](https://pepy.tech/badge/w3mo)](https://pepy.tech/project/w3mo) 
 [![Downloads](https://pepy.tech/badge/w3mo/month)](https://pepy.tech/project/w3mo/month)
 [![Downloads](https://pepy.tech/badge/w3mo/week)](https://pepy.tech/project/w3mo/week)
-
-<br>
 
 # Installation
 ```pip3 install w3mo```
