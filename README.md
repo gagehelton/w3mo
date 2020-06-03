@@ -1,11 +1,20 @@
 # w3mo
-control your wemo devices
+Control your wemo devices!
 
 # Installation
-* clone repository
-* run pip3 install .
+```pip3 install w3mo```
 
 # Usage
-* run w3mo.py
-* enter ip address of device
-* enter desired state. 1 or 0!
+```python
+import w3mo
+
+#returns a dictionary of w3mo devices with the IP address as the key
+x = w3mo.discover(return_type=dict)
+
+# OR
+
+x = w3mo.discover(return_type=list)
+
+
+
+```

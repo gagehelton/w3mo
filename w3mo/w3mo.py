@@ -7,6 +7,9 @@ import xml.etree.ElementTree as ET
 debug = False
 devices = {}
 
+## self.state = 3 means setting state from function call failed
+
+
 class _DEFAULTS():
     headers={
             'User-Agent': '',
@@ -63,7 +66,11 @@ class w3mo():
         if(parse_kwargs(required,kwargs)):
             self.ip = kwargs['ip']
             self.url = _DEFAULTS.base_url.format(device=self.ip)
-
+            self.state = 0
+            self.name = 'unkown'
+            self.get_state()
+            self.get_name()
+            
     def parse_xml(self,value,search):
         xml = ET.fromstring(value)
         for node in xml.iter(search):
@@ -73,13 +80,39 @@ class w3mo():
                 print("something is off... \n\n {} \n\n".format(node))
                 return False
 
-
-    def simple_control(self,state):
+    def set_state(self,state):
         try:
-            self.control(action=_DEFAULTS.actions['SET_STATE'],
+            response = self.control(action=_DEFAULTS.actions['SET_STATE'],
                 state=_DEFAULTS.states['STATE'],
                 value=state
                 )
+            try:
+                self.state = int(response)
+            except:
+                self.state = 3
+        except Exception as e:
+            print(type(e).__name__,e.args)
+
+    def get_state(self):
+        try:
+            response = self.get(
+                action=_DEFAULTS.actions['GET_STATE'],
+                value='state'
+            )
+            try:
+                self.state = int(response)
+            except:
+                self.state = 3
+        except Exception as e:
+            print(type(e).__name__,e.args)
+
+    def get_name(self):
+        try:
+            response = self.get(
+                action=_DEFAULTS.actions['GET_NAME'],
+                value='name'
+            )
+            self.name = response
         except Exception as e:
             print(type(e).__name__,e.args)
 
@@ -133,6 +166,7 @@ class w3mo():
 
 def work3r(**kwargs):
     global devices
+        
     ip = kwargs['ip']
         
     x = w3mo(ip=ip)
@@ -150,14 +184,25 @@ def work3r(**kwargs):
             value=1
             )
         if(response):
-            print("Device {} | {} initialized".format(response,ip))
-            devices[ip] = {}
-            devices[ip]['name'] = response
-            devices[ip]['obj'] = x
+            if(isinstance(devices,dict)):
+                print("Device {} | {} initialized".format(response,ip))
+                devices[response] = {}
+                devices[response]['ip'] = ip
+                devices[response]['obj'] = x
+            elif(isinstance(devices,list)):
+                devices.append({"ip":ip,"name":response,"obj":x})
 
-def discover():
+def discover(**kwargs):
     global devices
-    devices = {}
+    
+    try:
+        if(kwargs['return_type'] == dict):
+            devices = {}
+        elif(kwargs['return_type'] == list):
+            devices = []
+    except:
+        devices = {}
+    
     try:
         host_name = socket.gethostname() 
         host_ip = socket.gethostbyname(host_name) 
@@ -180,9 +225,6 @@ def discover():
 def interactive():
     error_counter = 0
     response = False
-
-    
-
     found = discover()
 
     if(not found):
