@@ -177,7 +177,8 @@ def work3r(**kwargs):
         )
   
     if(not response):
-        print("No device at address {}".format(ip))
+        pass
+        #print("No device at address {}".format(ip))
     else:
         response = x.get(
             action=_DEFAULTS.actions['GET_NAME'],
@@ -194,7 +195,8 @@ def work3r(**kwargs):
 
 def discover(**kwargs):
     global devices
-    
+
+    print("Discovering devices...")
     try:
         if(kwargs['return_type'] == dict):
             devices = {}
@@ -219,7 +221,7 @@ def discover(**kwargs):
         if t is main_thread:
             continue
         t.join()
-
+    print("Dicovery complete!")
     return devices
 
 def interactive():
