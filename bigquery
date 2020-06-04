@@ -1,0 +1,9 @@
+#standardSQL
+SELECT COUNT(*) AS num_downloads
+FROM `the-psf.pypi.downloads*`
+WHERE file.project = 'w3mo'
+  -- Only query the last 360 days of history
+  AND _TABLE_SUFFIX
+    BETWEEN FORMAT_DATE(
+      '%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL 360 DAY))
+    AND FORMAT_DATE('%Y%m%d', CURRENT_DATE())
