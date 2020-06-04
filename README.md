@@ -2,14 +2,20 @@
 
 w3mo is a pure python API wrapper for wemo devices
 
-[![Downloads](https://pepy.tech/badge/w3mo)](https://pepy.tech/project/w3mo) 
+<span>[![Downloads](https://pepy.tech/badge/w3mo)](https://pepy.tech/project/w3mo) 
 [![Downloads](https://pepy.tech/badge/w3mo/month)](https://pepy.tech/project/w3mo/month)
-[![Downloads](https://pepy.tech/badge/w3mo/week)](https://pepy.tech/project/w3mo/week)
+[![Downloads](https://pepy.tech/badge/w3mo/week)](https://pepy.tech/project/w3mo/week)</span>
 
 # Installation
 ```pip3 install w3mo```
 
 # Usage
+* Interactive "Shell" 
+```python
+from w3mo import w3mo
+w3mo.interactive() #this mode will launch a "shell" to interact with discovered devices on your network
+```
+
 * Device Discovery
 ```python
 from w3mo import w3mo
@@ -22,6 +28,7 @@ x = w3mo.discover(return_type=dict)
 #[{'name':'device_name_1','ip':'device_ip':,'obj':instantiated w3mo control class}]
 x = w3mo.discover(return_type=list)
 ```
+
 * Device Control
 ```python
 from w3mo import w3mo

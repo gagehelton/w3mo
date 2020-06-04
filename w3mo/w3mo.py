@@ -250,7 +250,7 @@ def discover(**kwargs):
 def interactive():
     error_counter = 0
     response = False
-    found = discover()
+    found = discover(return_type=list)
 
     if(not found):
         try:
@@ -276,8 +276,6 @@ def interactive():
         except Exception as e:
             print('fail here')
             print(str(e))
-    else:
-        return False
     prompt = '''|-------------------------------------------------------------------------------------------------------------------|
 | Welcome to W3mo Pwn!                                                                                              |
 |-------------------------------------------------------------------------------------------------------------------|
@@ -298,9 +296,40 @@ def interactive():
 
 
     while True:
+        def calc_spaces(index,name):
+            TOTAL=112
+            out = ""
+            for i in range(TOTAL-(len(str(index))+len(name))):
+                out+=" "
+            return out
+
+        if(found):
+            discovery_prompt = '''|-------------------------------------------------------------------------------------------------------------------|
+| Device discovery found the following items, please select from the list                                           |
+|-------------------------------------------------------------------------------------------------------------------|'''
+            print(discovery_prompt)
+            for i in range(len(found)):
+                print("| {}: {}{}|".format(i,found[i]['name'],calc_spaces(i,found[i]['name'])))
+            print("|-------------------------------------------------------------------------------------------------------------------|")
+
+
         try:
-            
-            value = input('\nw3mo.sh3ll$ ')
+            term = input('\nw3mo.sh3ll$ ')
+            x = found[int(term)]['obj']
+        except:
+            try:
+                if(term.strip().lower() == 'exit'):
+                    break
+                else:
+                    print(prompt)
+            except Exception as e:
+                print("Failure! {} | {}".format(type(e).__name__,e.args))
+        try:
+            if(not x):
+                print("No device to control!")
+                break
+                
+            value = input('\nw3mo.sh3ll$({}) '.format(x.name))
             response = False
             try:
                 value = int(value)
