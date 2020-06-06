@@ -1,5 +1,5 @@
 # Version 0.1.4
-* Update "shell"
+* Update interactive "shell"
 
 # Version 0.1.3
 * update documentation
