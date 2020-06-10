@@ -279,9 +279,6 @@ def interactive():
     prompt = '''|-------------------------------------------------------------------------------------------------------------------|
 | Welcome to W3mo Pwn!                                                                                              |
 |-------------------------------------------------------------------------------------------------------------------|
-| I would like to personally thank Belkin for being a bag of di*** and hiding the API...                            |                  
-| Despite your best efforts, here we are!                                                                           |
-|-------------------------------------------------------------------------------------------------------------------|
 | To control your device just enter a state integer (0=OFF,1=ON)                                                    |
 | To get your device power state enter 'state'                                                                      |
 | To get your device's friendly name enter 'name'                                                                   |
