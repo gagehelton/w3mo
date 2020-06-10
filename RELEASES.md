@@ -1,5 +1,6 @@
 # Version 0.1.4
 * Update interactive "shell"
+* Discovery only works on /24 (255.255.255.0) subnets, more subnet options coming soon.
 
 # Version 0.1.3
 * update documentation
