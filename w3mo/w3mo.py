@@ -88,7 +88,10 @@ class w3mo():
                 )
             try:
                 self.state = int(response)
-            except:
+            except TypeError:
+                self.state = 3
+            except Exception as e:
+                print(type(e).__name__,e.args)
                 self.state = 3
         except Exception as e:
             print(type(e).__name__,e.args)
@@ -101,7 +104,10 @@ class w3mo():
             )
             try:
                 self.state = int(response)
-            except:
+            except TypeError:
+                self.state = 3
+            except Exception as e:
+                print(type(e).__name__,e.args)
                 self.state = 3
         except Exception as e:
             print(type(e).__name__,e.args)
@@ -210,12 +216,18 @@ def discover(**kwargs):
             devices = {}
         elif(kwargs['return_type'] == list):
             devices = []
-    except:
+    except KeyError:
+        devices = {}
+    except Exception as e:
+        print(type(e).__name__,e.args)
         devices = {}
 
     try:
         additional_ranges = kwargs['additional_ranges']
-    except:
+    except KeyError:
+        additional_ranges = []
+    except Exception as e:
+        print(type(e).__name__,e.args)
         additional_ranges = []
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -313,7 +325,7 @@ def interactive():
         try:
             term = input('\nw3mo.sh3ll$ ')
             x = found[int(term)]['obj']
-        except:
+        except Exception as e:
             try:
                 if(term.strip().lower() == 'exit'):
                     break
@@ -330,9 +342,12 @@ def interactive():
             response = False
             try:
                 value = int(value)
-            except:
+            except TypeError:
                 if(isinstance(value,str) and value == 'exit'):
                     break
+            except Exception as e:
+                print(type(e).__name__,e.args)
+                return False
 
             if(not isinstance(value,bool) and isinstance(value,int)):         
                 response = x.control(
