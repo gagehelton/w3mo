@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sys
 import socket
 import requests
@@ -8,7 +9,6 @@ debug = False
 devices = {}
 
 ## self.state = 3 means setting state from function call failed
-
 
 class _DEFAULTS():
     headers={
@@ -130,9 +130,7 @@ class w3mo():
                 headers['SOAPACTION'] = headers['SOAPACTION'].format(**kwargs)
     
                 data = _DEFAULTS.post_xml.format(**kwargs)
-    
-                #print("{}\n{}\n{}\n\n\n\n".format(self.url,headers,data))
-    
+        
                 response = requests.post(self.url,headers=headers,data=data,timeout=_DEFAULTS.timeout)
                 if(response.status_code == 200):
                     state = self.parse_xml(response.text,_DEFAULTS.states['STATE'])
@@ -152,8 +150,6 @@ class w3mo():
     
                 data = _DEFAULTS.get_xml.format(**kwargs)
     
-                #print("{}\n{}\n{}\n\n\n\n".format(self.url,headers,data))
-    
                 response = requests.get(self.url,headers=headers,data=data,timeout=_DEFAULTS.timeout)
 
                 if(response.status_code == 200):
@@ -172,9 +168,7 @@ class w3mo():
 
 def work3r(**kwargs):
     global devices
-        
     ip = kwargs['ip']
-        
     x = w3mo(ip=ip)
     
     response = x.get(
@@ -184,7 +178,6 @@ def work3r(**kwargs):
   
     if(not response):
         pass
-        #print("No device at address {}".format(ip))
     else:
         response = x.get(
             action=_DEFAULTS.actions['GET_NAME'],
