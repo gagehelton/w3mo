@@ -6,7 +6,7 @@ w3mo is a pure python API wrapper for wemo devices
 [![Downloads](https://pepy.tech/badge/w3mo/month)](https://pepy.tech/project/w3mo/month)
 [![Downloads](https://pepy.tech/badge/w3mo/week)](https://pepy.tech/project/w3mo/week)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/mghelton/w3mo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mghelton/w3mo/context:python)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/mghelton/w3mo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mghelton/w3mo/context:python)</span>
+</span>
 
 # Installation
 ```pip3 install w3mo```
