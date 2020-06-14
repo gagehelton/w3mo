@@ -26,7 +26,7 @@ class _DEFAULTS():
     states = {"STATE":"BinaryState","NAME":"FriendlyName"}
     
     port = 49153
-    timeout = 10
+    timeout = 1
     
     base_url = 'http://{device}:{port}/upnp/control/basicevent1'.format(device = "{device}",port=port)
 
@@ -121,7 +121,7 @@ class w3mo():
             self.name = response
         except Exception as e:
             print(type(e).__name__,e.args)
-
+            
     def control(self,**kwargs):
         required = {"action":{"type":str},"state":{"type":str},"value":{"type":int}}
         if(parse_kwargs(required,kwargs)):
@@ -170,15 +170,12 @@ def work3r(**kwargs):
     global devices
     ip = kwargs['ip']
     x = w3mo(ip=ip)
-    
     response = x.get(
         action=_DEFAULTS.actions['GET_STATE'],
         value=1
         )
   
-    if(not response):
-        pass
-    else:
+    if(response):
         response = x.get(
             action=_DEFAULTS.actions['GET_NAME'],
             value=1
