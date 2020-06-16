@@ -191,13 +191,13 @@ def work3r(**kwargs):
 
 def discover(**kwargs):
     global devices
-
+    print("NEW ONE")
     def join():
         main_thread = threading.currentThread()
         for t in threading.enumerate():
             if t is main_thread:
                 continue
-            t.join()
+            t.join(1)
         return True
 
     print("Discovering devices...")
