@@ -83,8 +83,6 @@ class w3mo_UI(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.root_widget = Builder.load_string(kv)
-
-        print(self.root_widget.current)
     
         t = threading.Thread(target=self.get_devices)
         t.daemon = True

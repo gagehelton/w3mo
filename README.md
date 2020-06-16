@@ -54,7 +54,7 @@ device.set_state(1)
 #device.set_state(0)
 ```
 
-#Supported Devices
+# Supported Devices
 
 <strong>Wemo Mini Smart Plug - F7C063</strong>
 
