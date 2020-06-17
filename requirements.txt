@@ -5,7 +5,7 @@ docutils==0.16
 idna==2.9
 Kivy==1.11.1
 Kivy-Garden==0.1.4
-kivymd @ git+https://github.com/HeaTTheatR/KivyMD.git@1a466892d87b3b2ae70c57642c7aa59b1a415980
+kivymd
 macholib==1.14
 Pillow==7.1.2
 Pygments==2.6.1
