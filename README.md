@@ -28,6 +28,7 @@ w3mo.interactive() #this mode will launch a "shell" to interact with discovered 
 ```bash
 git clone https://github.com/mghelton/w3mo
 cd ./w3mo
+pip3 install .
 python3 w3mo/ui.py
 ```
 
