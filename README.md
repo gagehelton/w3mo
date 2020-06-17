@@ -53,3 +53,23 @@ device.set_state(1)
 #turn off
 #device.set_state(0)
 ```
+
+# Supported Devices
+
+<strong>Wemo Mini Smart Plug - F7C063</strong>
+
+|Firmware Version                   |Supported          |
+|:---                               |:---               |
+|WeMo_WW_2.00.11452.PVT-OWRT-SNSV2  |:heavy_check_mark: |
+|WeMo_WW_2.00.11420.PVT-OWRT-SNSV2  |:heavy_check_mark: |
+|WeMo_WW_2.00.11326.PVT-OWRT-SNSV2  |:heavy_check_mark: |
+
+
+<strong>Wemo WiFi Smart Light Switch - WLS040</strong>
+
+|Firmware Version                       |Supported          |
+|:---                                   |:---               |
+|WeMo_WW_2.00.11451.PVT-OWRT-LIGHTV2    |:heavy_check_mark: |
+|WeMo_WW_2.00.11395.PVT-OWRT-LIGHTV2    |:heavy_check_mark: |
+
+
