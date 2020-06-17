@@ -12,14 +12,14 @@ w3mo is a pure python API wrapper for wemo devices
 ```pip3 install w3mo```
 
 # Usage
-* Interactive "Shell" 
+## Interactive "Shell" 
 ```python
 from w3mo import w3mo
 w3mo.interactive() #this mode will launch a "shell" to interact with discovered devices on your network
 ```
 
-* Simple UI
-This operation runs a simple Kivy user interface that populates a list with all found devices
+## Simple UI
+* This operation runs a simple Kivy user interface that populates a list with all found devices
 
 ![](assets/loading_page.png)
 
@@ -31,7 +31,7 @@ cd ./w3mo
 python3 w3mo/ui.py
 ```
 
-* Device Discovery
+##  Device Discovery
 ```python
 from w3mo import w3mo
 
@@ -44,7 +44,7 @@ x = w3mo.discover(return_type=dict)
 x = w3mo.discover(return_type=list)
 ```
 
-* Device Control
+## Device Control
 ```python
 from w3mo import w3mo
 import time
