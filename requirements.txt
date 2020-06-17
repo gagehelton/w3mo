@@ -1,1 +1,14 @@
-requests>="2.22.0"
+altgraph==0.17
+certifi==2020.4.5.2
+chardet==3.0.4
+docutils==0.16
+idna==2.9
+Kivy==1.11.1
+Kivy-Garden==0.1.4
+kivymd @ git+https://github.com/HeaTTheatR/KivyMD.git@1a466892d87b3b2ae70c57642c7aa59b1a415980
+macholib==1.14
+Pillow==7.1.2
+Pygments==2.6.1
+PyInstaller==3.6
+requests==2.23.0
+urllib3==1.25.9

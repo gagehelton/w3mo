@@ -13,7 +13,7 @@ setup(name='w3mo',
         author='Gage Helton',
         author_email='gagehelton@gmail.com',
         url='https://github.com/mghelton/w3mo',
-        packages=['w3mo','ui'],
+        packages=['w3mo'],
         classifiers=[
             "Programming Language :: Python :: 3",
             "License :: OSI Approved :: MIT License",
