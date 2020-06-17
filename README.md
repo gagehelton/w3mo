@@ -70,6 +70,8 @@ device.set_state(1)
 
 # Supported Devices
 
+* NOTE: supported just means I had these devices / firmwares on hand for testing. Other devices SHOULD work, if you find something that doesn't fix it and submit a pull request!
+
 <strong>Wemo Mini Smart Plug - F7C063</strong>
 
 |Firmware Version                   |Supported          |
