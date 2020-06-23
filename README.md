@@ -82,4 +82,4 @@ device.set_state(1)
 
 # Related Projects
 * [simple Kivy based UI](https://www.github.com/mghelton/w3mo_kivy)
-* [electron and web server based UI]{https://www.github.com/mghelton/w3mo_ui)
+* [electron and web server based UI](https://www.github.com/mghelton/w3mo_ui)
