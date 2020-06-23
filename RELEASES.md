@@ -1,3 +1,7 @@
+# Version 0.1.6
+* Add join_timeout and debug parameters to discover()
+* Remove Kivy UI and relocate to https://www.github.com/mghelton/w3mo-kivy
+
 # Version 0.1.5
 * Add simple Kivy UI
 * Set threads to daemon and join timeout

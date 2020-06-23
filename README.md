@@ -18,20 +18,6 @@ from w3mo import w3mo
 w3mo.interactive() #this mode will launch a "shell" to interact with discovered devices on your network
 ```
 
-## Simple UI
-* This operation runs a simple Kivy user interface that populates a list with all found devices
-
-![](assets/loading_page.png)
-
-![](assets/main_page.png)
-
-```bash
-git clone https://github.com/mghelton/w3mo
-cd ./w3mo
-pip3 install .
-python3 w3mo/ui.py
-```
-
 ##  Device Discovery
 ```python
 from w3mo import w3mo
@@ -43,6 +29,12 @@ x = w3mo.discover(return_type=dict)
 #returns a list of devices
 #[{'name':'device_name_1','ip':'device_ip':,'obj':instantiated w3mo control class}]
 x = w3mo.discover(return_type=list)
+
+#sets the timeout in seconds that the script will wait for a thread to join. This basically improves speed with the understanding that threads will still be running in the background if set too short. Default is 5s.
+x = w3mo.discover(join_timeout=5)
+
+#prints verbose debug data to the console. Default is False.
+x = w3mo.discover(debug=True)
 ```
 
 ## Device Control
@@ -88,4 +80,6 @@ device.set_state(1)
 |WeMo_WW_2.00.11451.PVT-OWRT-LIGHTV2    |:heavy_check_mark: |
 |WeMo_WW_2.00.11395.PVT-OWRT-LIGHTV2    |:heavy_check_mark: |
 
-
+# Related Projects
+* [simple Kivy based UI]("https://www.github.com/mghelton/w3mo_kivy")
+* [electron and web server based UI]("https://www.github.com/mghelton/w3mo_ui")

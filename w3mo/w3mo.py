@@ -91,10 +91,10 @@ class w3mo():
             except TypeError:
                 self.state = 3
             except Exception as e:
-                print(type(e).__name__,e.args)
+                if(debug): print("{} | {}".format(type(e).__name__,e.args))
                 self.state = 3
         except Exception as e:
-            print(type(e).__name__,e.args)
+            if(debug): print("{} | {}".format(type(e).__name__,e.args))
 
     def get_state(self):
         try:
@@ -107,10 +107,10 @@ class w3mo():
             except TypeError:
                 self.state = 3
             except Exception as e:
-                print(type(e).__name__,e.args)
+                if(debug): print("{} | {}".format(type(e).__name__,e.args))
                 self.state = 3
         except Exception as e:
-            print(type(e).__name__,e.args)
+            if(debug): print("{} | {}".format(type(e).__name__,e.args))
 
     def get_name(self):
         try:
@@ -120,7 +120,7 @@ class w3mo():
             )
             self.name = response
         except Exception as e:
-            print(type(e).__name__,e.args)
+            if(debug): print("{} | {}".format(type(e).__name__,e.args))
             
     def control(self,**kwargs):
         required = {"action":{"type":str},"state":{"type":str},"value":{"type":int}}
@@ -136,7 +136,7 @@ class w3mo():
                     state = self.parse_xml(response.text,_DEFAULTS.states['STATE'])
                     return state
             except Exception as e:
-                if(debug): print("\n{}\n".format(str(e)))
+                if(debug): print("{} | {}".format(type(e).__name__,e.args))
                 return False
         return False
 
@@ -162,7 +162,7 @@ class w3mo():
                     value = self.parse_xml(response.text,search)
                     return value
             except Exception as e:
-                if(debug): print("\n{}\n".format(str(e)))
+                if(debug): print("{} | {}".format(type(e).__name__,e.args))
         else:
             return False
 
@@ -182,7 +182,7 @@ def work3r(**kwargs):
             )
         if(response):
             if(isinstance(devices,dict)):
-                print("Device {} | {} initialized".format(response,ip))
+                if(debug): print("Device {} | {} initialized".format(response,ip))
                 devices[response] = {}
                 devices[response]['ip'] = ip
                 devices[response]['obj'] = x
@@ -191,15 +191,25 @@ def work3r(**kwargs):
 
 def discover(**kwargs):
     global devices
+    global debug
+    
+    try:
+        timeout = kwargs['join_timeout']
+    except KeyError:
+        timeout = 5
+    try:
+        debug = kwargs['debug']
+    except KeyError:
+        pass
+    if(debug): print("Discovering Devices...")
+    if(debug): print("join_timeout = {}s".format(timeout))
     def join():
         main_thread = threading.currentThread()
         for t in threading.enumerate():
             if t is main_thread:
                 continue
-            t.join(5)
+            t.join(timeout)
         return True
-
-    print("Discovering devices...")
     try:
         if(kwargs['return_type'] == dict):
             devices = {}
@@ -208,24 +218,22 @@ def discover(**kwargs):
     except KeyError:
         devices = {}
     except Exception as e:
-        print(type(e).__name__,e.args)
+        if(debug): print(type(e).__name__,e.args)
         devices = {}
-
     try:
         additional_ranges = kwargs['additional_ranges']
     except KeyError:
         additional_ranges = []
     except Exception as e:
-        print(type(e).__name__,e.args)
+        if(debug): print(type(e).__name__,e.args)
         additional_ranges = []
-
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         s.connect(('8.8.8.8', 1))
         host_ip = s.getsockname()[0]
     except Exception as e:
         s.close()
-        print(type(e).__name__,e.args)
+        if(debug): print(type(e).__name__,e.args)
         return False
 
     if(host_ip):
@@ -237,7 +245,7 @@ def discover(**kwargs):
     
     if(additional_ranges):
         if(isinstance(additional_ranges,list)):
-            print("Looking in addtional ranges...")
+            if(debug): print("Looking in addtional ranges...")
             for rng in additional_ranges:
                 print("{}...".format(rng))
                 for i in range(1,255):
@@ -245,7 +253,7 @@ def discover(**kwargs):
                     threading.Thread(target=work3r,kwargs={"ip":subnet+str(i)}).start()
                 join()
 
-    print("Dicovery complete!")    
+    if(debug): print("Dicovery complete!")    
     return devices
 
 def interactive():
