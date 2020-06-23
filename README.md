@@ -81,5 +81,5 @@ device.set_state(1)
 |WeMo_WW_2.00.11395.PVT-OWRT-LIGHTV2    |:heavy_check_mark: |
 
 # Related Projects
-* [simple Kivy based UI]("https://www.github.com/mghelton/w3mo_kivy")
-* [electron and web server based UI]("https://www.github.com/mghelton/w3mo_ui")
+* (simple Kivy based UI)["https://www.github.com/mghelton/w3mo_kivy"]
+* (electron and web server based UI)["https://www.github.com/mghelton/w3mo_ui"]
