@@ -118,7 +118,7 @@ class w3mo():
                 action=_DEFAULTS.actions['GET_NAME'],
                 value='name'
             )
-            self.name = response
+            self.name = response.lower()
         except Exception as e:
             if(debug): print("{} | {}".format(type(e).__name__,e.args))
             
