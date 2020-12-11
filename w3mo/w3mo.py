@@ -179,7 +179,7 @@ def work3r(**kwargs):
         response = x.get(
             action=_DEFAULTS.actions['GET_NAME'],
             value=1
-            )
+            ).lower().strip()
         if(response):
             if(isinstance(devices,dict)):
                 if(debug): print("Device {} | {} initialized".format(response,ip))

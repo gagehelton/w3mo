@@ -1,3 +1,6 @@
+# Version 0.1.10
+* Well, the last two versions worked except for in discover() - works now
+
 # Version 0.1.9
 * Actually make names lowercase.. 0.1.8 was a bust
 
