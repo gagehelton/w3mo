@@ -1,3 +1,6 @@
+# Version 0.1.8
+* Make device names lowercase. Most important release ever.
+
 # Version 0.1.7
 * Add join_timeout and debug parameters to discover()
 * Remove Kivy UI and relocate to https://www.github.com/mghelton/w3mo-kivy
