@@ -1,3 +1,6 @@
+# Version 0.1.9
+* Actually make names lowercase.. 0.1.8 was a bust
+
 # Version 0.1.8
 * Make device names lowercase. Most important release ever.
 
